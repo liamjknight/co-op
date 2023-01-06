@@ -1,0 +1,65 @@
+import java.util.InputMismatchException;
+import java.util.Scanner;
+
+public class Pyramid {
+  public static void main(String[] args) {
+    Scanner sc = new Scanner(System.in);
+
+    try {
+      // Prompt the user to enter the character to use in the pyramid
+      System.out.print("Enter the character to use in the pyramid: ");
+      String character = sc.nextLine();
+
+      // Validate the character
+      if (character.length() != 1) {
+        throw new IllegalArgumentException("Error: Character must be a single character.");
+      }
+
+      // Prompt the user to enter the number of rows
+      System.out.print("Enter the number of rows: ");
+      double rows = sc.nextDouble();
+
+      // Round the number of rows to the nearest integer
+      rows = Math.round(rows);
+
+      // Validate the number of rows
+      if (rows < 1) {
+        throw new IllegalArgumentException("Error: Number of rows must be positive.");
+      }
+
+      // Use a StringBuilder to build the pyramid string
+      StringBuilder sb = new StringBuilder();
+
+      // Build the pyramid using a single loop
+      for (int i = 0; i < rows; i++) {
+        // Calculate the number of spaces needed
+        int spaces = (int)rows - i - 1;
+
+        // Add the spaces to the StringBuilder
+        for (int j = 0; j < spaces; j++) {
+          sb.append(" ");
+        }
+
+        // Calculate the number of characters needed
+        int numChars = 2 * i + 1;
+
+        // Add the characters to the StringBuilder
+        for (int j = 0; j < numChars; j++) {
+          sb.append(character);
+        }
+
+        // Add a newline character
+        sb.append("\n");
+      }
+
+      // Print the pyramid
+      System.out.println(sb.toString());
+    } catch (InputMismatchException e) {
+      // Print an error message if the input is not a valid number
+      System.out.println("Error: Please enter a valid number.");
+    } catch (IllegalArgumentException e) {
+      // Print an error message if the number of rows is invalid
+      System.out.println(e.getMessage());
+    }
+  }
+}
